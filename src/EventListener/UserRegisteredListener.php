@@ -17,7 +17,7 @@ final class UserRegisteredListener
     {
         $user = $event->getUser();
         $email = (new Email())
-        ->from('dharitri11@gmail.com')
+        ->from('dharitri11@gmail.com') //. $_ENV['SENDERS_EMAIL']
         ->to($user->getEmail())
         ->subject('Welcome to Our Website!')
         ->text('Thank you for registering! We are excited to have you on board.');

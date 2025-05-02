@@ -9,7 +9,8 @@
     <tbody>  
         <tr>
             <th>Name</th>
-            <td>{{ product.name }}</td>
+            <td>{{ product.name }}
+            {% if product.brochureFilename %} <a href="{{ asset('uploads/brochures/' ~ product.brochureFilename) }}">View brochure (PDF) {% endif %}</td>
         </tr>   
         <tr>
              <th>Description</th>
