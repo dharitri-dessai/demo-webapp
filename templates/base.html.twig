@@ -23,6 +23,10 @@
                 <a href="{{ path('app_logout') }}">Logout</a>
             </div>
         {% endif %}
+        <h1>Choose a font</h1>
+        <p>{{ font_selector() }}</p>
+        <h1>Choose a Color</h1>
+        <p>{{ color_selector() }}</p>
         {% block body %}{% endblock %}
     </body>
 </html>

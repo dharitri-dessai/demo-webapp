@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\ProductRepository;
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Service\FileUploaderService;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -37,15 +38,25 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product/new', name: 'product_new')]
-    public function new(Request $request, EntityManagerInterface $manager) : Response 
+    public function new(Request $request, EntityManagerInterface $manager, FileUploaderService $fileUploader) : Response 
     {
         $product = new Product;
 
+        // Create a form for the Product entity using the ProductType form class
         $form = $this->createForm(ProductType::class, $product);
 
+        // Processes the form submission and binds the request data to the $product entity
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {            
+            $brochureFile = null;
+            if ($form->has('brochure')) {
+                $brochureFile = $form->get('brochure')->getData();
+            }
+            if ($brochureFile) {
+                $brochureFileName = $fileUploader->upload($brochureFile);
+                $product->setBrochureFilename($brochureFileName);
+            }
             
             $manager->persist($product);
  
@@ -66,7 +77,7 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product/{id<\d+>}/edit', name: 'product_edit')]
-    public function edit(Product $product, Request $request, EntityManagerInterface $manager): Response 
+    public function edit(Product $product, Request $request, EntityManagerInterface $manager, FileUploaderService $fileUploader): Response 
     {
                 
         $form = $this->createForm(ProductType::class, $product);
@@ -74,6 +85,11 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $brochureFile = $form->get('brochure')->getData();
+            if ($brochureFile) {
+                $brochureFileName = $fileUploader->upload($brochureFile);
+                $product->setBrochureFileName($brochureFileName);
+            }
             
             $manager->flush();
 

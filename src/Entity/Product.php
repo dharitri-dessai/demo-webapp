@@ -32,6 +32,9 @@ class Product
     #[Assert\Positive]
     private ?int $size = null;
 
+    #[ORM\Column(type:'string')]
+    private ?string $brochureFileName = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +73,16 @@ class Product
     {
         $this->size = $size;
 
+        return $this;
+    }
+
+    public function getBrochureFileName(): ?string {
+        return $this->brochureFileName;
+    }
+
+    public function setBrochureFileName(string $brochureFileName): static 
+    {
+        $this->brochureFileName = $brochureFileName;
         return $this;
     }
 }
