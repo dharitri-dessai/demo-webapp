@@ -1,0 +1,26 @@
+
+
+{% embed 'components/card.html.twig' %}
+
+    {% block header %}<h2> Impoting macro form </h2>{% endblock %}
+
+    {% block body %}
+        {% import 'macros/form.twig' as form %}
+        <form method="post">
+
+            {{ form.field('username', 'Username', 'input', '', ['Username is required'], {}, 'Choose a unique username', true)}}
+
+            {{ form.field('bio', 'Your Bio', 'textarea', 'Hello world!', [], {}, 'Tell us something about yourself')}}
+
+            {{ form.field('gender', 'Gender', 'select', 'f', [], {'m': 'Male', 'f': 'Female', 'o': 'Other'}, '', true) }}
+
+            {{ form.field('submit', 'Submit', 'button', '', [], {}, '', false, false, "btn btn-primary")}}
+
+        </form>
+    
+    {% endblock %}
+
+{% endembed %}
+
+ 
+

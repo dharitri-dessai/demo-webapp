@@ -129,4 +129,9 @@ class ProductController extends AbstractController
             'id' => $product->getId(),
         ]);
     }
+
+    #[Route('/product/show-macro', name: 'product_show_marco')]
+    public function showMacroForm() : Response {
+        return $this->render('product/show_macro.html.twig');
+    }
 }

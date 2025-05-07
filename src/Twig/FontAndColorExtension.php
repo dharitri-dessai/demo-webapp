@@ -5,7 +5,7 @@ namespace App\Twig;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class FontExtension extends AbstractExtension {
+class FontAndColorExtension extends AbstractExtension {
 
     public function getFunctions() : array
     {
@@ -24,7 +24,9 @@ class FontExtension extends AbstractExtension {
         }
         $html .= '</select>';
 
-        // Inline JS for simplicity
+               // Inline JS 
+        // This function changes the font family of the entire document body
+        // based on the selected font from the dropdown menu.
         $html .= <<<JS
         <script>
             function changeFont(font) {

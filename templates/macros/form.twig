@@ -1,0 +1,57 @@
+{% macro field(name, label, type='text', value='', errors=[], options={}, help='', required=false, disabled=false, classes='') %}
+    <div class="form-group {{ errors ? 'has-error' : '' }}">
+        <label for="{{ name }}">
+            {{ label }}
+            {% if required %}<span class="text-danger">*</span>{% endif %}
+        </label>
+   
+
+        {% if type == 'textarea' %}
+            <textarea
+                name="{{ name }}"
+                id="{{ name }}"
+                class="form-control {{ classes }}"
+                {% if required %}required{% endif %}
+                {% if disabled %}disabled{% endif %}
+                >{{ value }}
+            </textarea>
+
+        {% elseif type == 'select' %}
+            <select
+                name="{{ name }}"
+                id="{{ name }}"
+                class="form-control {{ classes }}"
+                {% if required %}required{% endif %}
+                {% if disabled %}disabled{% endif %}
+            >
+                {% for key, text in options %}
+                    <option value="{{ key }}" {{ value == key ? 'selected' : '' }}>{{ text }}</option>
+                {% endfor %}
+            </select>
+
+        {% elseif  type == 'input' %}
+            <input
+                type="{{ type }}"
+                name="{{ name }}"
+                id="{{ name }}"
+                value="{{ value }}"
+                class="form-control {{ classes }}"
+                {% if required %}required{% endif %}
+                {% if disabled %}disabled{% endif %}
+            />
+
+        {% elseif type == 'button' %}
+            <button type="{{ type }}" class="{{ classes }}">{{ label }}</button>
+        {% endif %}
+
+        {% if help %}
+            <small class="form-text text-muted">{{ help }}</small>
+        {% endif %}
+
+        {% for error in errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    
+    </div>
+
+{% endmacro %}
