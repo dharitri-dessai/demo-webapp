@@ -23,10 +23,19 @@
                 <a href="{{ path('app_logout') }}">Logout</a>
             </div>
         {% endif %}
-        <h1>Choose a font</h1>
-        <p>{{ font_selector() }}</p>
-        <h1>Choose a Color</h1>
-        <p>{{ color_selector() }}</p>
+        <div>
+            <h1>Choose a font</h1>
+            <p>{{ font_selector() }}</p>
+            <h1>Choose a Color</h1>
+            <p>{{ color_selector() }}</p>
+        </div>
+
+        <div>
+            {% set input = "Hello Symfony World" %}
+            <p>Original: {{ input }}</p>
+            <p>Reversed Words: {{ input|reverse_words }}</p>
+        </div>
+
         {% block body %}{% endblock %}
     </body>
 </html>

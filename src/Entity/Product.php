@@ -35,6 +35,10 @@ class Product
     #[ORM\Column(type:'string')]
     private ?string $brochureFileName = null;
 
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -83,6 +87,18 @@ class Product
     public function setBrochureFileName(string $brochureFileName): static 
     {
         $this->brochureFileName = $brochureFileName;
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+
         return $this;
     }
 }
